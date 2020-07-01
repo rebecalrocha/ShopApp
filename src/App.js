@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
+import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Home from './pages/Home';
-import Signup from './Signup';
+import ShoppingCart from './pages/ShoppingCart';
+
 
 
 class App extends Component {
@@ -13,38 +15,30 @@ class App extends Component {
     super(props);
     
     this.state = {
-      user: null,
+      user: null, //pq vou usar isso?
     }
   }
 
   //right after component is rendered
-  componentDidMount() {
-    this.authListener();
-    console.log(this.state)
+  async componentDidMount() {
+    await this.authListener();
   }
 
   //call when auth change
   authListener = () => {
-      //let currentUser = JSON.parse(localStorage.getItem("currentUser")) || []
-      //const user = { uid: '01', email: 'teste@teste.com' }
-      //this.setState({ user });
-      //localStorage.setItem('currentUser', user.uid);
+      let currentUser = JSON.parse(localStorage.getItem("currentUser")) || []
+      this.setState({ user: currentUser });
   }
-  
-  logout = () => {
-    this.setState({ user: null });
-    localStorage.removeItem('currentUser');
-    //return <Redirect to="/login" />
-  }
-
 
   render() {
     return (
       <Router>
         <div className="App">
           <Navbar/>
-
           <Switch>
+            <Route path="/shoppingcart">
+              <ShoppingCart />
+            </Route>
             <Route path="/home">
               <Home />
             </Route>
