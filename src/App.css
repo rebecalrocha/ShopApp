@@ -9,12 +9,23 @@ body {
 
 .container {
     height: 100%;
-    margin-top: 7%;
     justify-content: center;
     align-items: center;
+}
+
+.marginLogin {
+    margin-top: 15%;
+}
+
+.marginSignup {
+    margin-top: 7%;
 }
 
 .container-form {
   margin-left: 20%;
   margin-right: 20%;
 }
+
+.text:hover {
+    cursor: default;
+  }

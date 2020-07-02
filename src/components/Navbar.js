@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cartIcon from '../../assets/cart.svg';
+import cartIcon from '../assets/cart.svg';
+import CartContainer from '../container/CounterContainer';
 
 export default class Navbar extends React.Component {
+  
     constructor(props) {
         super(props);
         this.state = {
             productCount: 0,
-            user: null
+            user: null,
+            isLogged: false
+
         };
     }
 
@@ -17,6 +21,7 @@ export default class Navbar extends React.Component {
 
       let currentUser = await JSON.parse(localStorage.getItem("currentUser")) || null;
       this.setState({ user: currentUser });
+
     }
 
     onLogoutClick = () => {
@@ -38,6 +43,7 @@ export default class Navbar extends React.Component {
     }
 
     render() {
+      
       return (
       <nav className="nav navbar navbar-light">
           <a className="navbar-brand" href="/home">
@@ -46,12 +52,12 @@ export default class Navbar extends React.Component {
           <div className="row mx-3">
             <Link to="/shoppingcart" className="nav-item nav-link" title='Go to cart'>
               <img src={cartIcon} alt="cart.svg"/>
-              {this.state.productCount}
+              <CartContainer/>
             </Link>
             
             { this.state.user  ?
-              <button onClick={this.onLogoutClick} className="btn btn-outline-primary">Log Out</button> :
-              <Link to="/login" className="nav-item nav-link">Login</Link>
+              <button onClick={this.onLogoutClick} className="btn btn-outline-primary">Log out</button> :
+              <a className="btn btn-outline-primary nav-item nav-link btn-link" href="/login" role="button">Log In</a>
             }
           </div>
         </nav>

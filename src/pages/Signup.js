@@ -45,11 +45,11 @@ class Signup extends Component {
 
   render() {
       return (
-          <div className="container">
+          <div className="container marginSignup">
           <form className="container-form">
               <div className="form-group">
                   <label htmlFor="inputName">Name</label>
-                  <input value={this.state.name} onChange={this.handleChange} autoComplete="off" type="name" name="name" className="form-control" id="inputName1" aria-describedby="nameHelp" placeholder="Enter name" />
+                  <input value={this.state.name} onChange={this.handleChange} autoComplete="off" type="name" name="name" className="form-control" id="inputName1" aria-describedby="nameHelp"/>
               </div>
               <div className="form-group">
                   <label htmlFor="inputDateOfBirth">Date Of Birth</label>
@@ -57,19 +57,19 @@ class Signup extends Component {
               </div>
               <div className="form-group">
                   <label htmlFor="inputCPF">CPF</label>
-                  <input value={this.state.cpf} onChange={this.handleDocument} autoComplete="off" maxLength='14' type="cpf" name="cpf" className="form-control" id="inputCpf" aria-describedby="cpfHelp" placeholder="Enter CPF" />
+                  <input value={this.state.cpf} onChange={this.handleDocument} autoComplete="off" maxLength='14' type="cpf" name="cpf" className="form-control" id="inputCpf" aria-describedby="cpfHelp"/>
               </div>
               <div className="form-group">
                   <label htmlFor="InputEmail">Email</label>
-                  <input value={this.state.email} onChange={this.handleChange} autoComplete="off" type="email" name="email" className="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                  <input value={this.state.email} onChange={this.handleChange} autoComplete="off" type="email" name="email" className="form-control" id="inputEmail1" aria-describedby="emailHelp"/>
               </div>
               <div className="form-group">
                   <label htmlFor="inputPassword1">Password</label>
-                  <input value={this.state.password} onChange={this.handleChange} autoComplete="off" type="password" name="password" className="form-control" id="inputPassword1" placeholder="Enter password" />
+                  <input value={this.state.password} onChange={this.handleChange} autoComplete="off" type="password" name="password" className="form-control" id="inputPassword1"/>
               </div>
               <div className="form-group">
                   <label htmlFor="inputPassword2">Confirm Password</label>
-                  <input value={this.state.password_confirmation} onChange={this.verifyPassword} autoComplete="off" type="password" name="password_confirmation" className="form-control" id="inputPassword2" placeholder="Confirm password" />
+                  <input value={this.state.password_confirmation} onChange={this.verifyPassword} autoComplete="off" type="password" name="password_confirmation" className="form-control" id="inputPassword2"/>
               </div>
 
               <button onClick={this.onSubmit} className="btn btn-success mb-1">Sign Up</button>

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Home from './pages/Home';
-import ShoppingCart from './pages/ShoppingCart';
+import CartContainer from './container/CartContainer';
+import Checkout from './pages/Checkout';
 
 
 
@@ -36,8 +37,11 @@ class App extends Component {
         <div className="App">
           <Navbar/>
           <Switch>
+            <Route path="/checkout">
+              <Checkout />
+            </Route>
             <Route path="/shoppingcart">
-              <ShoppingCart />
+              <CartContainer />
             </Route>
             <Route path="/home">
               <Home />
