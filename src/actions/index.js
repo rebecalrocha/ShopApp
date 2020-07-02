@@ -1,19 +1,5 @@
 //ACTION
-export const increment = () => {
-    return {
-      type: 'INCREMENT' //name
-      
-    }
-  }
-  
-export const decrement = () => {
-    return {
-      type: 'DECREMENT',
-      //payload: number //data
-    }
-}
-
-export const login = () => {
+export const toggleLogin = () => {
     return {
         type: 'LOG_IN'
     }
@@ -24,9 +10,9 @@ export const incrementCart = (newProduct) => ({
   payload: newProduct //object
 })
 
-export const decrementCart = (deletedProductId) => ({
+export const decrementCart = (productId) => ({
   type: 'DECREMENT_CART',
-  payload: deletedProductId //id
+  payload: productId //id
 })
 
 export const incrementProduct = (id) => ({

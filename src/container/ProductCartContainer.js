@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { incrementProduct, decrementProduct, decrementCart } from '../actions'
 
-const Item = ({product, clickLessProduct, clickMoreProduct, clickDeleteProduct}) =>{
+
+const ProductCartContainer = ({product, clickLessProduct, clickMoreProduct, clickDeleteProduct}) =>{
     return (   
         <div className="d-flex flex-row ml-3 mb-3" style={{alignItems: "center"}}>    
             <div>
@@ -21,4 +24,11 @@ const Item = ({product, clickLessProduct, clickMoreProduct, clickDeleteProduct})
     );
 }
 
-export default Item;
+const mapDispatchToProps = dispatch => ({
+    clickDeleteProduct: id => dispatch(decrementCart(id)),
+    clickMoreProduct: id => dispatch(incrementProduct(id)),
+    clickLessProduct: id => dispatch(decrementProduct(id))
+})
+
+
+export default connect(null, mapDispatchToProps)(ProductCartContainer)

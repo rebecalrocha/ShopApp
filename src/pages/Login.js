@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { toggleLogin } from '../actions'
+import { connect } from 'react-redux'
 
 class Login extends Component {
   constructor(props) {
@@ -16,16 +17,16 @@ class Login extends Component {
   }
 
   onSubmit = event => {
+    console.log('submit')
     event.preventDefault();
-    if(this.state.email === 'teste@teste.com' &&  this.state.password === '123123') {
-      
-      //setar user no localStorage
-      const user = { uid: "01", email: "teste@teste.com" }
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      window.location.href = '/home';
+    if (this.state.email === 'teste@teste.com' &&  this.state.password === '123123') {
+      this.props.login();
+      if(document.referrer === 'http://localhost:3000/checkout')
+        window.location.href = '/checkout';
+      else
+        window.location.href = '/home';
     } else {
       console.log('continuo em login');
-      // error
     }
   }
 
@@ -34,11 +35,11 @@ class Login extends Component {
       <div className="container marginLogin">
         <form className="container-form">
             <div className="form-group">
-                <label htmlFor="exampleInputEmail1">Email</label>
+                <label htmlFor="inputEmail">Email</label>
                 <input value={this.state.email} onChange={this.handleChange} autoComplete="off" type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
             </div>
             <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Password</label>
+                <label htmlFor="inputPassword">Password</label>
                 <input value={this.state.password} onChange={this.handleChange} autoComplete="off" type="password" name="password" className="form-control" id="exampleInputPassword1"/>
             </div>
             <button type="submit" onClick={this.onSubmit} className="btn btn-primary mb-1">Login</button>
@@ -52,4 +53,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+  login: () => dispatch(toggleLogin())
+})
+
+export default connect(null, mapDispatchToProps)(Login);

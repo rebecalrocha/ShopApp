@@ -1,8 +1,16 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import TotalProducts from '../components/TotalProducts'
+
+const CounterContainer = ({totalProducts}) => {
+  return (
+    <span>
+      {totalProducts}
+    </span>
+  )
+}
 
 const mapStateToProps = state => ({
-  totalProducts: state.productsReducer
+  totalProducts: state.productsReducer.length
 })
 
-export default connect(mapStateToProps)(TotalProducts)
+export default connect(mapStateToProps)(CounterContainer)

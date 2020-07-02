@@ -11,19 +11,25 @@ class Checkout extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Hi friends! It's me, Rebs!</h1>
+            <div>      
+                <h5 className="font-weight-bold m-3">Checkout</h5>
+                <hr/>
+                <form>
+                    <label class="font-weight-bold ml-3 mb-3">Shipping Address</label>
+                    <div class="form-group row col-md-6">
+                        <label for="inputFullName" class="col-sm-2 col-form-label">Fulname</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputFullName"/>
+                        </div>
+                    </div>
+                    <div class="form-group row col-md-6">
+                        <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputAddress"/>
+                        </div>
+                    </div>
+                </form>
 
-                <div>
-                    Shipping address
-                    <br/>
-                    Full name:
-                    Address:
-                    City:
-                    State:
-                    ZIP:
-                    Country:
-                </div>
 
                 <div>
                     Add a credit or debit card

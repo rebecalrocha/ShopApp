@@ -1,45 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import cartIcon from '../assets/cart.svg';
-import CartContainer from '../container/CounterContainer';
+import CounterContainer from '../container/CounterContainer';
+import { toggleLogin } from '../actions'
+import { connect } from 'react-redux'
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
   
-    constructor(props) {
-        super(props);
-        this.state = {
-            productCount: 0,
-            user: null,
-            isLogged: false
-
-        };
-    }
-
-    async componentDidMount() {
-      let cart = await JSON.parse(localStorage.getItem("cart")) || {};
-      this.setState({productCount: Object.keys(cart).length});
-
-      let currentUser = await JSON.parse(localStorage.getItem("currentUser")) || null;
-      this.setState({ user: currentUser });
-
-    }
-
     onLogoutClick = () => {
-      this.setState({ user: null });
-      console.log('logout', this.state.user);
-      localStorage.removeItem('currentUser');
+      this.props.logout();
       window.location.href = '/login';
-    }
-
-    userLogged = () => {
-      if (this.state.user) {
-        console.log('user', this.state.user, typeof (this.state.user))
-        return true;
-      } else {
-        console.log('not user', this.state.user, typeof (this.state.user))
-        return false
-      }
-      
     }
 
     render() {
@@ -52,10 +22,10 @@ export default class Navbar extends React.Component {
           <div className="row mx-3">
             <Link to="/shoppingcart" className="nav-item nav-link" title='Go to cart'>
               <img src={cartIcon} alt="cart.svg"/>
-              <CartContainer/>
+              <CounterContainer/>
             </Link>
             
-            { this.state.user  ?
+            { this.props.isLogged  ?
               <button onClick={this.onLogoutClick} className="btn btn-outline-primary">Log out</button> :
               <a className="btn btn-outline-primary nav-item nav-link btn-link" href="/login" role="button">Log In</a>
             }
@@ -63,5 +33,14 @@ export default class Navbar extends React.Component {
         </nav>
         );
     }
-
 }
+
+const mapStateToProps = state => ({
+  isLogged: state.loggerReducer
+})
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(toggleLogin())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
