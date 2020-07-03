@@ -29,3 +29,8 @@ body {
 .text:hover {
     cursor: default;
   }
+
+
+.sidebar {
+    margin-right: auto;
+}

@@ -42,7 +42,7 @@ class Login extends Component {
                 <label htmlFor="inputPassword">Password</label>
                 <input value={this.state.password} onChange={this.handleChange} autoComplete="off" type="password" name="password" className="form-control" id="exampleInputPassword1"/>
             </div>
-            <button type="submit" onClick={this.onSubmit} className="btn btn-primary mb-1">Login</button>
+            <button type="submit" onClick={this.onSubmit} className="btn btn-primary mb-1">Log In</button>
             <br/>
             <small>
               Don't have an account? Sign up <Link to="/signup">here</Link>.

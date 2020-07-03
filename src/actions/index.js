@@ -1,9 +1,7 @@
 //ACTION
-export const toggleLogin = () => {
-    return {
-        type: 'LOG_IN'
-    }
-}
+export const toggleLogin = () => ({
+    type: 'LOG_IN'
+})
 
 export const incrementCart = (newProduct) => ({
   type: 'INCREMENT_CART',
@@ -24,3 +22,9 @@ export const decrementProduct = (id) => ({
   type: 'DECREMENT_PRODUCT',
   payload: id
 })
+
+export const deleteCart = () => ({
+  type: 'DELETE_CART'
+})
+
+

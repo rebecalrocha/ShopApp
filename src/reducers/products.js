@@ -14,6 +14,9 @@ const productsReducer = (state = [], action) => {
             return state.map(product => 
                 (product.id === action.payload && product.quantity > 1) ? {...product, quantity: product.quantity - 1 } : product)
 
+        case 'DELETE_CART':
+            return []
+
         default:
         return state
     }
