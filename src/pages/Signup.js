@@ -13,7 +13,8 @@ class Signup extends Component {
         password: '',
         passwordConfirmation: '',
         message: {},
-        errors: {}
+        errors: {},
+        samePassword: true
       };
     }
   
@@ -25,28 +26,24 @@ class Signup extends Component {
     this.setState({ cpf: cpfMask(event.target.value) })
   }
     
-  verifyPassword = async event => {
-    await this.handleChange(event);
-
-      if (this.state.passwordConfirmation.length >= this.state.password.length) {
-        if (this.state.password !== this.state.passwordConfirmation) {
-            return false
-        } else {
-            return true
-        }
-    }
-  }
 
   removeMessage = () => {
     this.setState({message: {}})
   }
 
   onSubmit = async event => {
-    this.setState({errors: ""})
 
+    
     event.preventDefault();
-    if (this.verifyPassword)
-      this.setState({message: {...this.state.message, message:"Your password and confirmation password do not match."}})
+    await this.setState({errors: ""})
+
+    if (this.state.password !== this.state.passwordConfirmation){
+      await this.setState({message: {...this.state.message, message:"Your password and confirmation password do not match."}})
+      await this.setState({samePassword: false})
+    } else {
+      await this.setState({samePassword: true})
+    }
+      
 
     if(this.state.name === "") 
       await this.setState({errors: {...this.state.errors, name: "Name is required"}})
@@ -66,7 +63,7 @@ class Signup extends Component {
     if(this.state.passwordConfirmation === "") 
       await this.setState({errors: {...this.state.errors, passwordConfirmation: "Password confirmation is required"}})
 
-    if(Object.keys(this.state.errors).length === 0) {
+    if(Object.keys(this.state.errors).length === 0 && this.state.samePassword) {
         window.location.href = '/login';
     }
 
@@ -83,7 +80,7 @@ class Signup extends Component {
               </button>
             </div> : null
           }
-          <div classNamw="container marginSignup"> 
+          <div className="container marginSignup"> 
             <form className="container-form">
               <div className="form-group">
                   <label htmlFor="inputName">Name</label>
@@ -127,7 +124,7 @@ class Signup extends Component {
 
               <div className="form-group">
                   <label htmlFor="inputPassword1">Password</label>
-                  <input value={this.state.password} onChange={this.handleChange} autoComplete="off" type="password" name="password" className="form-control" id="inputPassword1"/>
+                  <input value={this.state.password} onChange={this.handleChange} autoComplete="new-password" type="password" name="password" className="form-control" id="inputPassword1"/>
                   { this.state.errors.password ?
                     <span style={{color: "red"}}>
                       {this.state.errors.password}
@@ -137,7 +134,7 @@ class Signup extends Component {
 
               <div className="form-group">
                   <label htmlFor="inputPassword2">Confirm Password</label>
-                  <input value={this.state.passwordConfirmation} onChange={this.verifyPassword} autoComplete="off" type="password" name="passwordConfirmation" className="form-control" id="inputPassword2"/>
+                  <input value={this.state.passwordConfirmation} onChange={this.handleChange} autoComplete="off" type="password" name="passwordConfirmation" className="form-control" id="inputPassword2"/>
                   { this.state.errors.passwordConfirmation ?
                     <span style={{color: "red"}}>
                       {this.state.errors.passwordConfirmation}

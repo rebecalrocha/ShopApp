@@ -47,9 +47,8 @@ class Checkout extends Component {
     }
 
     onSubmit = async event => {
-        console.log('submit')
         event.preventDefault();
-        this.setState({errors: {}})
+        await this.setState({errors: {}})
 
         if(this.state.firstName === "") 
             await this.setState({errors: {...this.state.errors, firstName: "First name is required"}})
@@ -63,8 +62,10 @@ class Checkout extends Component {
         if(this.state.city === "") 
             await this.setState({errors: {...this.state.errors, city: "City is required"}})
 
-        if(this.state.state === "") 
+        if(this.state.state === "" || this.state.state === true){
             await this.setState({errors: {...this.state.errors, state: "State is required"}})
+        } 
+            
 
         if(this.state.zip === "") 
             await this.setState({errors: {...this.state.errors, zip: "Zip is required"}})
@@ -80,6 +81,7 @@ class Checkout extends Component {
 
         if(this.state.secCode === "") 
             await this.setState({errors: {...this.state.errors, secCode: "Security code is required"}})
+
 
         if(Object.keys(this.state.errors).length === 0) {
             this.props.deleteCart();
@@ -220,7 +222,7 @@ class Checkout extends Component {
                         </div>
                         </form>
                         <hr className="mb-4 mx-3"/>
-                        <button style={{width: "96%"}} onClick={this.onSubmit} className=" mx-3 btn btn-primary btn-lg btn-block" type="submit">Place your order</button>
+                        <button style={{width: "96%", marginBottom: "1em"}} onClick={this.onSubmit} className=" mx-3 btn btn-primary btn-lg btn-block" type="submit">Place your order</button>
                     </div>
                     
                 </div>
