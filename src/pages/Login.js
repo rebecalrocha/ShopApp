@@ -9,6 +9,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      message: {}
     };
   }
 
@@ -17,7 +18,6 @@ class Login extends Component {
   }
 
   onSubmit = event => {
-    console.log('submit')
     event.preventDefault();
     if (this.state.email === 'teste@teste.com' &&  this.state.password === '123123') {
       this.props.login();
@@ -26,13 +26,27 @@ class Login extends Component {
       else
         window.location.href = '/home';
     } else {
-      console.log('continuo em login');
+      this.setState({message: {...this.state.message, message: "Something went wrong, please try again..."}})
+
     }
+  }
+
+  removeMessage = () => {
+    this.setState({message: {}})
   }
 
   render() {
     return (
-      <div className="container marginLogin">
+      <div className="">
+        { this.state.message.message ?
+          <div className="alert alert-danger m-3" role="alert">
+            {this.state.message.message}
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.removeMessage}>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div> : null
+        }
+        <div className="container marginLogin">
         <form className="container-form">
             <div className="form-group">
                 <label htmlFor="inputEmail">Email</label>
@@ -48,6 +62,7 @@ class Login extends Component {
               Don't have an account? Sign up <Link to="/signup">here</Link>.
             </small>
         </form>
+        </div>
       </div>
     );
   }

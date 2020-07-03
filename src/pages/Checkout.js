@@ -69,7 +69,6 @@ class Checkout extends Component {
         if(this.state.zip === "") 
             await this.setState({errors: {...this.state.errors, zip: "Zip is required"}})
 
-        //
         if(this.state.cardName === "") 
             await this.setState({errors: {...this.state.errors, cardName: "Card name is required"}})
 
