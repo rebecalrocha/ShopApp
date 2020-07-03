@@ -3,6 +3,7 @@ const productsReducer = (state = [], action) => {
     switch (action.type) {
         case 'INCREMENT_CART':
             return [...state, { ...action.payload, quantity: 1 }]
+            
         case 'DECREMENT_CART':
             return state.filter(product => product.id !== action.payload)
 
