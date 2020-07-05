@@ -24,7 +24,7 @@ store.subscribe(() => {
 
 
 ReactDOM.render(
-  <Provider store={store}r>
+  <Provider store={store}>
       <App />
   </Provider>,
   document.getElementById('root')

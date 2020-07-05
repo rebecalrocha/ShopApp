@@ -1,29 +1,54 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { cpfMask } from '../components/MaskCPF'
+import { getErrors } from '../utils/formValidate'
 
 class Signup extends Component {
   constructor(props) {
-      super(props);
-      this.state = { 
-        name: '',
-        dateOfBirth: '',
-        cpf: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-        message: {},
-        errors: {},
-        samePassword: true
-      };
+    super(props);
+    this.state = { 
+      name: '',
+      dateOfBirth: '',
+      cpf: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      message: {},
+      errors: {},
+      samePassword: true
+    };
+  }
+
+  getCurrentState = () => ({
+    name: this.state.name,
+    dateOfBirth: this.state.dateOfBirth,
+    cpf: this.state.cpf,
+    email: this.state.email,
+    password: this.state.password,
+    passwordConfirmation: this.state.passwordConfirmation,
+  });
+
+  getChangeState = event => {
+    let name = event.target.name
+    if(this.state.errors[name]){
+        const {[name]: value, ...errors} = this.state.errors;
+        this.setState({errors})
+
+    } else {
+        if (!event.target.value || event.target.value === "") {
+            this.setState({errors: {...this.state.errors, [name]: 'Required'}})
+        }
     }
-  
+  }
+
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    this.getChangeState(event);
   }
 
   handleDocument = event => {
-    this.setState({ cpf: cpfMask(event.target.value) })
+    this.setState({ cpf: cpfMask(event.target.value) });
+    this.getChangeState(event);
   }
     
 
@@ -32,10 +57,11 @@ class Signup extends Component {
   }
 
   onSubmit = async event => {
-
-    
     event.preventDefault();
-    await this.setState({errors: ""})
+
+    const account = await this.getCurrentState();
+    const errors = await getErrors(account)
+    await this.setState({errors})
 
     if (this.state.password !== this.state.passwordConfirmation){
       await this.setState({message: {...this.state.message, message:"Your password and confirmation password do not match."}})
@@ -43,30 +69,10 @@ class Signup extends Component {
     } else {
       await this.setState({samePassword: true})
     }
-      
-
-    if(this.state.name === "") 
-      await this.setState({errors: {...this.state.errors, name: "Name is required"}})
-
-    if(this.state.dateOfBirth === "") 
-      await this.setState({errors: {...this.state.errors, dateOfBirth: "Date of birth is required"}})
-
-    if(this.state.cpf === "") 
-      await this.setState({errors: {...this.state.errors, cpf: "CPF is required"}})
-
-    if(this.state.email === "") 
-      await this.setState({errors: {...this.state.errors, email: "Email is required"}})
-
-    if(this.state.password === "") 
-      await this.setState({errors: {...this.state.errors, password: "Password is required"}})
-
-    if(this.state.passwordConfirmation === "") 
-      await this.setState({errors: {...this.state.errors, passwordConfirmation: "Password confirmation is required"}})
 
     if(Object.keys(this.state.errors).length === 0 && this.state.samePassword) {
         window.location.href = '/login';
     }
-
   }
 
   render() {
@@ -84,61 +90,49 @@ class Signup extends Component {
             <form className="container-form">
               <div className="form-group">
                   <label htmlFor="inputName">Name</label>
-                  <input value={this.state.name} onChange={this.handleChange} autoComplete="off" type="name" name="name" className="form-control" id="inputName1" aria-describedby="nameHelp"/>
+                  <input value={this.state.name} onChange={this.handleChange} autoComplete="off" type="name" name="name" className={this.state.errors.name ? "is-invalid form-control" :"form-control"} id="inputName1" aria-describedby="nameHelp"/>
                   { this.state.errors.name ?
-                    <span style={{color: "red"}}>
-                      {this.state.errors.name}
-                    </span> : null
+                    <div className="invalid-feedback"> {this.state.errors.name} </div> : null
                   }
               </div>
 
               <div className="form-group">
                   <label htmlFor="inputDateOfBirth">Date Of Birth</label>
-                  <input value={this.state.dateOfBirth} onChange={this.handleChange} autoComplete="off" type="date" name="dateOfBirth" className="form-control" id="inputDateOfBirth" aria-describedby="dateOfBirthHelp" />
+                  <input value={this.state.dateOfBirth} onChange={this.handleChange} autoComplete="off" type="date" name="dateOfBirth" className={this.state.errors.dateOfBirth ? "is-invalid form-control" :"form-control"} id="inputDateOfBirth" aria-describedby="dateOfBirthHelp" />
                   { this.state.errors.dateOfBirth ?
-                    <span style={{color: "red"}}>
-                      {this.state.errors.dateOfBirth}
-                    </span> : null
+                    <div className="invalid-feedback"> {this.state.errors.dateOfBirth} </div> : null
                   }
               </div>
 
               <div className="form-group">
                   <label htmlFor="inputCPF">CPF</label>
-                  <input value={this.state.cpf} onChange={this.handleDocument} autoComplete="off" maxLength='14' type="cpf" name="cpf" className="form-control" id="inputCpf" aria-describedby="cpfHelp"/>
+                  <input value={this.state.cpf} onChange={this.handleDocument} autoComplete="off" maxLength='14' type="cpf" name="cpf" className={this.state.errors.cpf ? "is-invalid form-control" :"form-control"} id="inputCpf" aria-describedby="cpfHelp"/>
                   { this.state.errors.cpf ?
-                    <span style={{color: "red"}}>
-                      {this.state.errors.cpf}
-                    </span> : null
+                    <div className="invalid-feedback"> {this.state.errors.cpf} </div> : null
                   }
               </div>
 
               <div className="form-group">
                   <label htmlFor="InputEmail">Email</label>
-                  <input value={this.state.email} onChange={this.handleChange} autoComplete="off" type="email" name="email" className="form-control" id="inputEmail1" aria-describedby="emailHelp"/>
+                  <input value={this.state.email} onChange={this.handleChange} autoComplete="off" type="email" name="email" className={this.state.errors.email ? "is-invalid form-control" :"form-control"} id="inputEmail1" aria-describedby="emailHelp"/>
                   { this.state.errors.email ?
-                    <span style={{color: "red"}}>
-                      {this.state.errors.email}
-                    </span> : null
+                    <div className="invalid-feedback"> {this.state.errors.email} </div> : null
                   }
               </div>
 
               <div className="form-group">
                   <label htmlFor="inputPassword1">Password</label>
-                  <input value={this.state.password} onChange={this.handleChange} autoComplete="new-password" type="password" name="password" className="form-control" id="inputPassword1"/>
+                  <input value={this.state.password} onChange={this.handleChange} autoComplete="new-password" type="password" name="password" className={this.state.errors.password ? "is-invalid form-control" :"form-control"} id="inputPassword1"/>
                   { this.state.errors.password ?
-                    <span style={{color: "red"}}>
-                      {this.state.errors.password}
-                    </span> : null
+                    <div className="invalid-feedback"> {this.state.errors.password} </div> : null
                   }
               </div>
 
               <div className="form-group">
                   <label htmlFor="inputPassword2">Confirm Password</label>
-                  <input value={this.state.passwordConfirmation} onChange={this.handleChange} autoComplete="off" type="password" name="passwordConfirmation" className="form-control" id="inputPassword2"/>
+                  <input value={this.state.passwordConfirmation} onChange={this.handleChange} autoComplete="off" type="password" name="passwordConfirmation" className={this.state.errors.passwordConfirmation ? "is-invalid form-control" :"form-control"} id="inputPassword2"/>
                   { this.state.errors.passwordConfirmation ?
-                    <span style={{color: "red"}}>
-                      {this.state.errors.passwordConfirmation}
-                    </span> : null
+                    <div className="invalid-feedback"> {this.state.errors.passwordConfirmation} </div> : null
                   }
               </div>
 
