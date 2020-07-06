@@ -28,7 +28,7 @@ class Signup extends Component {
     passwordConfirmation: this.state.passwordConfirmation,
   });
 
-  getChangeState = event => {
+  getChangedState = event => {
     let name = event.target.name
     if(this.state.errors[name]){
         const {[name]: value, ...errors} = this.state.errors;
@@ -43,12 +43,12 @@ class Signup extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    this.getChangeState(event);
+    this.getChangedState(event);
   }
 
   handleDocument = event => {
     this.setState({ cpf: cpfMask(event.target.value) });
-    this.getChangeState(event);
+    this.getChangedState(event);
   }
     
 

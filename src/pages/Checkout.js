@@ -42,7 +42,7 @@ class Checkout extends Component {
         paymentMethod: this.state.paymentMethod
     });
 
-    getChangeState = event => {
+    getChangedState = event => {
         let name = event.target.name
         if(this.state.errors[name]){
             const {[name]: value, ...errors} = this.state.errors;
@@ -62,12 +62,12 @@ class Checkout extends Component {
             this.setState({ cardDate: dateMask(event.target.value) })
         if(event.target.name === 'secCode')
             this.setState({ secCode: secMask(event.target.value) })
-        this.getChangeState(event);
+        this.getChangedState(event);
     }
 
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
-        this.getChangeState(event);              
+        this.getChangedState(event);              
     }
 
     onSubmit = async event => {

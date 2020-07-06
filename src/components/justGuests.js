@@ -7,9 +7,10 @@ const justGuests = Component => props => {
 
     let newLocation = () => {
         if(document.referrer === 'http://localhost:3000/checkout')
-            return window.location.href = '/checkout';
+            window.location.href = '/checkout';
         else
-            return window.location.href = '/home';
+            window.location.href = '/home';
+        return null;
     }
     
     return !isAuthenticated ? <Component {...props} /> : newLocation()

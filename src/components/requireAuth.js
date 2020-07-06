@@ -5,7 +5,12 @@ import { connect } from 'react-redux'
 const requireAuthentication = Component => props => {
     const { isAuthenticated } = props
     
-    return isAuthenticated ? <Component {...props} /> : window.location.href = '/login';
+    const redirect = () => {
+        window.location.href = '/login';
+        return null;
+    }
+
+    return isAuthenticated ? <Component {...props} /> : redirect();
 }
 
 const mapStateToProps = (state) => ({

@@ -20,7 +20,7 @@ class Login extends Component {
     password: this.state.password
   });
 
-  getChangeState = event => {
+  getChangedState = event => {
     let name = event.target.name
     if(this.state.errors[name]){
         const {[name]: value, ...errors} = this.state.errors;
@@ -35,7 +35,7 @@ class Login extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    this.getChangeState(event);
+    this.getChangedState(event);
   }
 
   onSubmit = async event => {
