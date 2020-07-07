@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { toggleLogin } from '../actions'
+import { toggleLogin, sendMessage } from '../actions'
 import { connect } from 'react-redux'
 import { getErrors } from '../utils/formValidate'
 
@@ -46,27 +46,17 @@ class Login extends Component {
     await this.setState({errors})
 
     if (this.state.email === 'teste@teste.com' &&  this.state.password === '123123') 
-        this.props.login();
+      this.props.login();
     else if (Object.keys(this.state.errors).length === 0) 
-      this.setState({message: {...this.state.message, message: "Something went wrong, please try again..."}})
+      this.setState({message:  {text: "Something went wrong, please try again...", type:"danger"}})
+      this.props.sendMessage(this.state.message);
 
-  }
-
-  removeMessage = () => {
-    this.setState({message: {}})
   }
 
   render() {
     return (
-      <div className="">
-        { this.state.message.message ?
-          <div className="alert alert-danger m-3" role="alert">
-            {this.state.message.message}
-            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.removeMessage}>
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div> : null
-        }
+      <div>
+        
         <div className="container marginLogin">
         <form className="container-form">
             <div className="form-group">
@@ -96,7 +86,8 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  login: () => dispatch(toggleLogin())
+  login: () => dispatch(toggleLogin()),
+  sendMessage: message => dispatch(sendMessage(message))
 })
 
 export default connect(null, mapDispatchToProps)(Login);

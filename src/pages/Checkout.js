@@ -7,6 +7,7 @@ import { deleteCart } from '../actions';
 import { connect } from 'react-redux';
 import { getErrors } from '../utils/formValidate'
 import countryStates from '../utils/states_titlecase.json'
+import { sendMessage } from '../actions'
 
 class Checkout extends Component {
     constructor(props){
@@ -24,7 +25,8 @@ class Checkout extends Component {
             countryState: "",
             zip: "",
             paymentMethod: "",
-            errors: {},
+            message: {},
+            errors: {}
         }
     }
 
@@ -79,7 +81,9 @@ class Checkout extends Component {
 
         if(Object.keys(this.state.errors).length === 0) {
             this.props.deleteCart();
+            this.setState({message:  {text: "Thank you for placing an order!", type: "success"}})
             window.location.href = '/home';
+            this.props.sendMessage(this.state.message);
         }
       }    
 
@@ -90,12 +94,10 @@ class Checkout extends Component {
         )
 
         return (
-            <div style={{width: "90%"}} className="container">      
+            <div className="container mt-4">      
                 <div className="row sidebar mr-1">
                     <OrderContainer/>
-                    
-                    <div className="col-md-8 order-md-1">
-                        
+                    <div className="col-md-8 order-md-1 ">
                         <form>
                         <div className="m-3">
                             <label className="font-weight-bold mb-3">Shipping Address</label>
@@ -209,7 +211,8 @@ class Checkout extends Component {
 
 }
 const mapDispatchToProps = dispatch => ({
-    deleteCart: () => dispatch(deleteCart())
+    deleteCart: () => dispatch(deleteCart()),
+    sendMessage: message => dispatch(sendMessage(message))
   })
 
 export default connect(null, mapDispatchToProps)(Checkout);

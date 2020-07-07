@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import CartContainer from './container/CartContainer';
 import Checkout from './pages/Checkout';
 import NotFound from './pages/NotFound';
+import AlertDismissible from '../src/container/AlertDismissible'
 
 
 
@@ -18,15 +19,18 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div className="App h-100">
+        
           <Navbar/>
+          <AlertDismissible />
+          
           <Switch>
-            <Route exact path={["/home", "/"]} component={Home} />
-            <Route exact path="/login" component={composedGuest(Login)} />
-            <Route exact path="/signup" component={composedGuest(Signup)} />
-            <Route exact path="/shoppingcart" component={CartContainer} />
-            <Route exact path="/checkout" component={composedAuthentication(Checkout)} />
-            <Route path="*" component={NotFound} />
+            <Route exact path={["/home", "/"]} component={Home}/>
+            <Route exact path="/login" component={composedGuest(Login)}/>
+            <Route exact path="/signup" component={composedGuest(Signup)}/>
+            <Route exact path="/shoppingcart" component={CartContainer}/>
+            <Route exact path="/checkout" component={composedAuthentication(Checkout)}/>
+            <Route path="*" component={NotFound}/>
           </Switch>
         </div>
       </Router>

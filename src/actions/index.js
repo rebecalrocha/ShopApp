@@ -27,4 +27,13 @@ export const deleteCart = () => ({
   type: 'DELETE_CART'
 })
 
+export const sendMessage = (message) => ({
+  type: 'SEND',
+  payload: message //object
+})
+
+export const closeMessage = () => ({
+  type: 'CLOSE'
+})
+
 

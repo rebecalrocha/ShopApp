@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { cpfMask } from '../components/MaskCPF'
 import { getErrors } from '../utils/formValidate'
+import { sendMessage } from '../actions'
+import { connect } from 'react-redux'
 
 class Signup extends Component {
   constructor(props) {
@@ -64,28 +66,23 @@ class Signup extends Component {
     await this.setState({errors})
 
     if (this.state.password !== this.state.passwordConfirmation){
-      await this.setState({message: {...this.state.message, message:"Your password and confirmation password do not match."}})
+      await this.setState({message:  {text: "Your password and confirmation password do not match.", type: "danger"}})
+      this.props.sendMessage(this.state.message);
       await this.setState({samePassword: false})
     } else {
       await this.setState({samePassword: true})
     }
 
     if(Object.keys(this.state.errors).length === 0 && this.state.samePassword) {
-        window.location.href = '/login';
+      await this.setState({message:  {text: "User successfully registered!", type: "success"}})
+      window.location.href = '/login';
+      this.props.sendMessage(this.state.message);
     }
   }
 
   render() {
       return (
         <div className="">
-          { this.state.message.message ?
-            <div className="alert alert-danger m-3" role="alert">
-              {this.state.message.message}
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.removeMessage}>
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div> : null
-          }
           <div className="container marginSignup"> 
             <form className="container-form">
               <div className="form-group">
@@ -106,7 +103,7 @@ class Signup extends Component {
 
               <div className="form-group">
                   <label htmlFor="inputCPF">CPF</label>
-                  <input value={this.state.cpf} onChange={this.handleDocument} autoComplete="off" maxLength='14' type="cpf" name="cpf" className={this.state.errors.cpf ? "is-invalid form-control" :"form-control"} id="inputCpf" aria-describedby="cpfHelp"/>
+                  <input value={this.state.cpf} onChange={this.handleDocument} placeholder="000.000.000-00" autoComplete="off" maxLength='14' type="cpf" name="cpf" className={this.state.errors.cpf ? "is-invalid form-control" :"form-control"} id="inputCpf" aria-describedby="cpfHelp"/>
                   { this.state.errors.cpf ?
                     <div className="invalid-feedback"> {this.state.errors.cpf} </div> : null
                   }
@@ -148,4 +145,9 @@ class Signup extends Component {
       );
     }
 }
-export default Signup;
+
+const mapDispatchToProps = dispatch => ({
+  sendMessage: message => dispatch(sendMessage(message))
+})
+
+export default connect(null, mapDispatchToProps)(Signup);

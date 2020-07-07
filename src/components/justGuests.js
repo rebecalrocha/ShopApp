@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const justGuests = Component => props => {
     const { isAuthenticated } = props
 
-    let newLocation = () => {
+    let redirect = () => {
         if(document.referrer === 'http://localhost:3000/checkout')
             window.location.href = '/checkout';
         else
@@ -13,7 +13,7 @@ const justGuests = Component => props => {
         return null;
     }
     
-    return !isAuthenticated ? <Component {...props} /> : newLocation()
+    return !isAuthenticated ? <Component {...props} /> : redirect();
 }
 
 const mapStateToProps = (state) => ({

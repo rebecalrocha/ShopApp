@@ -26,7 +26,7 @@ class Home extends Component {
 
         const products = this.state.products || [];
         return (
-            <div className="text">
+            <div className="text my-1">
                 <div className="d-flex justify-content-around flex-wrap">
                     {products && products.map(product => <ProductHomeContainer key={product.id} product={product} />)}
                 </div>
