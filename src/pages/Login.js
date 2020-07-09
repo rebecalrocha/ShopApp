@@ -44,21 +44,21 @@ class Login extends Component {
     const errors = await getErrors(account)
     await this.setState({ errors })
 
-    // fetch("https://trainning-storeapp-gateway-dev-g5kv7eofma-uw.a.run.app/user/login", {
-    //   "method": "POST",
-    //   "headers": {
-    //     "content-type": "application/json"
-    //   },
-    //   "body": {
-    //     "email": this.state.email,
-    //     "password": this.state.password
-    //   }
-    // })
-    // .then(data => { console.log(data) },
-    //   err => console.log(err))
+    global.fetch('https://trainning-storeapp-gateway-dev-g5kv7eofma-uw.a.run.app/user/login', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+      .then(data => { console.log(data) },
+        err => console.log(err))
 
-    if (this.state.email === 'teste@teste.com' && this.state.password === '123123') { this.props.login() } else if (Object.keys(this.state.errors).length === 0) { this.setState({ message: { text: 'Something went wrong, please try again...', type: 'danger' } }) }
-    this.props.sendMessage(this.state.message)
+    // if (this.state.email === 'teste@teste.com' && this.state.password === '123123') { this.props.login() } else if (Object.keys(this.state.errors).length === 0) { this.setState({ message: { text: 'Something went wrong, please try again...', type: 'danger' } }) }
+    // this.props.sendMessage(this.state.message)
   }
 
   render () {

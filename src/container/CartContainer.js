@@ -14,8 +14,7 @@ class CartContainer extends Component {
   render () {
     const products = this.props.products || []
     let totalPrice = 0
-    products.map(product => { totalPrice += product.quantity * product.price }
-    )
+    products.map((product) => (totalPrice += product.quantity * product.price))
 
     if (products.length === 0) {
       return (
@@ -28,7 +27,7 @@ class CartContainer extends Component {
         <div className='text' style={{ alignItems: 'center' }}>
           <h5 className='font-weight-bold m-3' style={{ alignItems: 'center' }}>Shopping Cart</h5>
           <hr />
-          {products.map(product => <ProductCartContainer key={product.id} product={product} />)}
+          {products.map((product) => (<ProductCartContainer key={product.id} product={product} />))}
 
           <div className='d-flex bg-light rounded justify-content-around m-3'>
             <h5 className='m-3'>
