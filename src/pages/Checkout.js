@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import OrderContainer from '../container/Order Container';
-import { cardMask } from '../components/MaskCard';
-import { dateMask } from '../components/MaskDate';
-import { secMask } from '../components/MaskSecCode';
-import { deleteCart } from '../actions';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import OrderContainer from '../container/Order Container'
+import { cardMask } from '../components/MaskCard'
+import { dateMask } from '../components/MaskDate'
+import { secMask } from '../components/MaskSecCode'
+import { deleteCart } from '../actions'
+import { connect } from 'react-redux'
 import { getErrors } from '../utils/formValidate'
 import countryStates from '../utils/states_titlecase.json'
 import { sendMessage } from '../actions'
 
 class Checkout extends Component {
     constructor(props){
-        super(props);
+        super(props)
 
         this.state = {
             cardName: "",
@@ -42,12 +42,12 @@ class Checkout extends Component {
         countryState: this.state.countryState,
         zip: this.state.zip,
         paymentMethod: this.state.paymentMethod
-    });
+    })
 
     getChangedState = event => {
         let name = event.target.name
         if(this.state.errors[name]){
-            const {[name]: value, ...errors} = this.state.errors;
+            const {[name]: value, ...errors} = this.state.errors
             this.setState({errors})
 
         } else {
@@ -64,26 +64,26 @@ class Checkout extends Component {
             this.setState({ cardDate: dateMask(event.target.value) })
         if(event.target.name === 'secCode')
             this.setState({ secCode: secMask(event.target.value) })
-        this.getChangedState(event);
+        this.getChangedState(event)
     }
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-        this.getChangedState(event);              
+        this.setState({ [event.target.name]: event.target.value })
+        this.getChangedState(event)     
     }
 
     onSubmit = async event => {
-        event.preventDefault();
+        event.preventDefault()
 
-        const account = await this.getCurrentState();
+        const account = await this.getCurrentState()
         const errors = await getErrors(account)
         await this.setState({errors})
 
         if(Object.keys(this.state.errors).length === 0) {
-            this.props.deleteCart();
+            this.props.deleteCart()
             this.setState({message:  {text: "Thank you for placing an order!", type: "success"}})
-            window.location.href = '/home';
-            this.props.sendMessage(this.state.message);
+            window.location.href = '/home'
+            this.props.sendMessage(this.state.message)
         }
       }    
 
@@ -204,7 +204,7 @@ class Checkout extends Component {
                 </div>
 
             </div>
-        );
+        )
     }
 
 
@@ -215,4 +215,4 @@ const mapDispatchToProps = dispatch => ({
     sendMessage: message => dispatch(sendMessage(message))
   })
 
-export default connect(null, mapDispatchToProps)(Checkout);
+export default connect(null, mapDispatchToProps)(Checkout)

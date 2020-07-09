@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { cpfMask } from '../components/MaskCPF'
 import { getErrors } from '../utils/formValidate'
 import { sendMessage } from '../actions'
@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 class Signup extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = { 
       name: '',
       dateOfBirth: '',
@@ -18,7 +18,7 @@ class Signup extends Component {
       message: {},
       errors: {},
       samePassword: true
-    };
+    }
   }
 
   getCurrentState = () => ({
@@ -28,12 +28,12 @@ class Signup extends Component {
     email: this.state.email,
     password: this.state.password,
     passwordConfirmation: this.state.passwordConfirmation,
-  });
+  })
 
   getChangedState = event => {
     let name = event.target.name
     if(this.state.errors[name]){
-        const {[name]: value, ...errors} = this.state.errors;
+        const {[name]: value, ...errors} = this.state.errors
         this.setState({errors})
 
     } else {
@@ -44,13 +44,13 @@ class Signup extends Component {
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    this.getChangedState(event);
+    this.setState({ [event.target.name]: event.target.value })
+    this.getChangedState(event)
   }
 
   handleDocument = event => {
-    this.setState({ cpf: cpfMask(event.target.value) });
-    this.getChangedState(event);
+    this.setState({ cpf: cpfMask(event.target.value) })
+    this.getChangedState(event)
   }
     
 
@@ -59,15 +59,15 @@ class Signup extends Component {
   }
 
   onSubmit = async event => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const account = await this.getCurrentState();
+    const account = await this.getCurrentState()
     const errors = await getErrors(account)
     await this.setState({errors})
 
     if (this.state.password !== this.state.passwordConfirmation){
       await this.setState({message:  {text: "Your password and confirmation password do not match.", type: "danger"}})
-      this.props.sendMessage(this.state.message);
+      this.props.sendMessage(this.state.message)
       await this.setState({samePassword: false})
     } else {
       await this.setState({samePassword: true})
@@ -75,15 +75,15 @@ class Signup extends Component {
 
     if(Object.keys(this.state.errors).length === 0 && this.state.samePassword) {
       await this.setState({message:  {text: "User successfully registered!", type: "success"}})
-      window.location.href = '/login';
-      this.props.sendMessage(this.state.message);
+      window.location.href = '/login'
+      this.props.sendMessage(this.state.message)
     }
   }
 
   render() {
       return (
         <div className="">
-          <div className="container marginSignup"> 
+          <div className="container mt-5"> 
             <form className="container-form">
               <div className="form-group">
                   <label htmlFor="inputName">Name</label>
@@ -142,7 +142,7 @@ class Signup extends Component {
             </form>
           </div>
         </div>
-      );
+      )
     }
 }
 
@@ -150,4 +150,4 @@ const mapDispatchToProps = dispatch => ({
   sendMessage: message => dispatch(sendMessage(message))
 })
 
-export default connect(null, mapDispatchToProps)(Signup);
+export default connect(null, mapDispatchToProps)(Signup)

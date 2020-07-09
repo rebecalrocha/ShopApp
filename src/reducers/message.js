@@ -1,15 +1,14 @@
 const messageReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SEND':
+      return action.payload
 
-    switch (action.type) {
-        case 'SEND':
-            return action.payload
-            
-        case 'CLOSE':
-            return {}
+    case 'CLOSE':
+      return {}
 
-        default:
-        return state
-    }
+    default:
+      return state
   }
+}
 
-export default messageReducer;
+export default messageReducer

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const CounterContainer = ({totalProducts}) => {
+const CounterContainer = ({ totalProducts }) => {
   return (
     <span>
       {totalProducts}

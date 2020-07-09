@@ -1,15 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import cartIcon from '../assets/cart.svg';
-import CounterContainer from '../container/CounterContainer';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import cartIcon from '../assets/cart.svg'
+import CounterContainer from '../container/CounterContainer'
 import { toggleLogin } from '../actions'
 import { connect } from 'react-redux'
 
 class Navbar extends React.Component {
   
     onLogoutClick = () => {
-      this.props.logout();
-      window.location.href = '/login';
+      this.props.logout()
+      window.location.href = '/login'
     }
 
     render() {
@@ -31,7 +31,7 @@ class Navbar extends React.Component {
             }
           </div>
         </nav>
-        );
+        )
     }
 }
 
@@ -43,4 +43,4 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(toggleLogin())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

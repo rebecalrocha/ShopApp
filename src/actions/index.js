@@ -1,16 +1,16 @@
-//ACTION
+// ACTION
 export const toggleLogin = () => ({
-    type: 'LOG_IN'
+  type: 'LOG_IN'
 })
 
 export const incrementCart = (newProduct) => ({
   type: 'INCREMENT_CART',
-  payload: newProduct //object
+  payload: newProduct // object
 })
 
 export const decrementCart = (productId) => ({
   type: 'DECREMENT_CART',
-  payload: productId //id
+  payload: productId // id
 })
 
 export const incrementProduct = (id) => ({
@@ -29,11 +29,9 @@ export const deleteCart = () => ({
 
 export const sendMessage = (message) => ({
   type: 'SEND',
-  payload: message //object
+  payload: message // object
 })
 
 export const closeMessage = () => ({
   type: 'CLOSE'
 })
-
-

@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { toggleLogin, sendMessage } from '../actions'
 import { connect } from 'react-redux'
 import { getErrors } from '../utils/formValidate'
 
 class Login extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       email: '',
       password: '',
       message: {},
       errors: {}
-    };
+    }
   }
 
   getCurrentState = () => ({
     email: this.state.email,
     password: this.state.password
-  });
+  })
 
   getChangedState = event => {
     let name = event.target.name
     if(this.state.errors[name]){
-        const {[name]: value, ...errors} = this.state.errors;
+        const {[name]: value, ...errors} = this.state.errors
         this.setState({errors})
 
     } else {
@@ -34,22 +34,22 @@ class Login extends Component {
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    this.getChangedState(event);
+    this.setState({ [event.target.name]: event.target.value })
+    this.getChangedState(event)
   }
 
   onSubmit = async event => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const account = await this.getCurrentState();
+    const account = await this.getCurrentState()
     const errors = await getErrors(account)
     await this.setState({errors})
 
     if (this.state.email === 'teste@teste.com' &&  this.state.password === '123123') 
-      this.props.login();
+      this.props.login()
     else if (Object.keys(this.state.errors).length === 0) 
       this.setState({message:  {text: "Something went wrong, please try again...", type:"danger"}})
-      this.props.sendMessage(this.state.message);
+      this.props.sendMessage(this.state.message)
 
   }
 
@@ -57,7 +57,7 @@ class Login extends Component {
     return (
       <div>
         
-        <div className="container marginLogin">
+        <div className="container mt-5">
         <form className="container-form">
             <div className="form-group">
                 <label htmlFor="inputEmail">Email</label>
@@ -81,7 +81,7 @@ class Login extends Component {
         </form>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -90,4 +90,4 @@ const mapDispatchToProps = dispatch => ({
   sendMessage: message => dispatch(sendMessage(message))
 })
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login)

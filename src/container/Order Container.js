@@ -4,33 +4,34 @@ import { connect } from 'react-redux'
 
 class OrderContainer extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         
         this.state = {
             totalPrice: 0,
             cupon:'',
             usedCupon: false
         }
-    };
+    }
+
     componentDidMount = () => {
-        this.totalPrice();
+        this.totalPrice()
     }
     
     totalPrice = () => {
-        const products = this.props.products || [];
-        let totalPrice = 0;
+        const products = this.props.products || []
+        let totalPrice = 0
         products.map(product => 
             totalPrice += product.quantity * product.price
-        );
+        )
         this.setState({totalPrice})
     }
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ [event.target.name]: event.target.value })
     }
 
     onSubmit = event => {
-        event.preventDefault();
+        event.preventDefault()
         if (this.state.cupon === 'LIVEN10') {
             this.setState({usedCupon: true})
           let newTotal = this.state.totalPrice * 0.9
