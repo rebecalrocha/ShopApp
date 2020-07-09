@@ -3,39 +3,33 @@ import axios from 'axios'
 import ProductHomeContainer from '../container/ProductHomeContainer'
 
 class Home extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            products: null,
-            checkProductBeenAdded: []
-        }
+  constructor (props) {
+    super(props)
+    this.state = {
+      products: null,
+      checkProductBeenAdded: []
     }
+  }
 
     componentDidMount = async () => {
-        try {
-            const response = await axios.get("https://5d6da1df777f670014036125.mockapi.io/api/v1/product")
-            this.setState({products: response.data})
-        } catch (error) {
-            console.log(error)
-        }
+      try {
+        const response = await axios.get('https://5d6da1df777f670014036125.mockapi.io/api/v1/product')
+        this.setState({ products: response.data })
+      } catch (error) {
+        console.log(error)
+      }
     }
 
-
-    render() {
-
-        const products = this.state.products || []
-        return (
-            <div className="text m-5">
-                <div className="d-flex justify-content-around flex-wrap">
-                    {products && products.map(product => <ProductHomeContainer key={product.id} product={product} />)}
-                </div>
-            </div>
-        )
-
-        
+    render () {
+      const products = this.state.products || []
+      return (
+        <div className='text m-5'>
+          <div className='d-flex justify-content-around flex-wrap'>
+            {products && products.map(product => <ProductHomeContainer key={product.id} product={product} />)}
+          </div>
+        </div>
+      )
     }
-        
 }
 
 export default Home

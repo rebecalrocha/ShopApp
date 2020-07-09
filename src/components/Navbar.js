@@ -6,32 +6,29 @@ import { toggleLogin } from '../actions'
 import { connect } from 'react-redux'
 
 class Navbar extends React.Component {
-  
-    onLogoutClick = () => {
+    handleOnLogoutClick = () => {
       this.props.logout()
       window.location.href = '/login'
     }
 
-    render() {
-      
+    render () {
       return (
-      <nav className="nav navbar navbar-light">
-          <a className="navbar-brand" href="/home">
-            <span className="navbar-brand font-weight-bold">Shop App</span>
+        <nav className='nav navbar navbar-light'>
+          <a className='navbar-brand' href='/home'>
+            <span className='navbar-brand font-weight-bold'>Shop App</span>
           </a>
-          <div className="row mx-3">
-            <Link to="/shoppingcart" className="nav-item nav-link" title='Go to cart'>
-              <img src={cartIcon} alt="cart.svg"/>
-              <CounterContainer/>
+          <div className='row mx-3'>
+            <Link to='/shoppingcart' className='nav-item nav-link' title='Go to cart'>
+              <img src={cartIcon} alt='cart.svg' />
+              <CounterContainer />
             </Link>
-            
-            { this.props.isLogged  ?
-              <button onClick={this.onLogoutClick} className="btn btn-outline-primary">Log out</button> :
-              <a className="btn btn-outline-primary nav-item nav-link btn-link" href="/login" role="button">Log In</a>
-            }
+
+            {this.props.isLogged
+              ? <button onClick={this.handleOnLogoutClick} className='btn btn-outline-primary'>Log out</button>
+              : <a className='btn btn-outline-primary nav-item nav-link btn-link' href='/login' role='button'>Log In</a>}
           </div>
         </nav>
-        )
+      )
     }
 }
 
