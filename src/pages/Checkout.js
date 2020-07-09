@@ -26,7 +26,7 @@ class Checkout extends Component {
             zip: "",
             paymentMethod: "",
             message: {},
-            errors: {}
+            errors: {},
         }
     }
 

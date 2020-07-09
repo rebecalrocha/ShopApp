@@ -6,15 +6,20 @@ const AlertDismissible = ({ message, remove }) => {
   let show = false
   if (message.text) { show = true }
 
+  function alert () {
+    return (
+      <div className={`alert alert-${message.type}`}>
+        {message.text}
+        <button className='close' onClick={() => { remove(); show = false }}>
+          <span aria-hidden='true'>&times;</span>
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div>
-      {show
-        ? <div className={`alert alert-${message.type}`}>
-          {message.text}
-          <button className='close' onClick={() => { remove(); show = false }}>
-            <span aria-hidden='true'>&times;</span>
-          </button>
-        </div> : null}
+      {show ? alert() : null}
     </div>
   )
 }
